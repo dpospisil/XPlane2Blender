@@ -657,5 +657,20 @@ class XPlaneLogger:
 
         return transport
 
+def stripObjName(oname:str) -> str:
+    i = oname.find(".")
+    if i > -1:
+        oname = oname[:i]
+    return oname    
+
+def resolveDatarefName(path: str, blenderObj) -> str:
+    if "#" in path:
+        path = path.replace("#", blenderObj.users_collection[0]["drefPath"] + "/" + stripObjName(blenderObj.name))
+    return path
+
+def resolveCommandName(path: str, blenderObj) -> str:
+    if "#" in path:
+        path = path.replace("#", blenderObj.users_collection[0]["drefPath"] + "/" + stripObjName(blenderObj.name))
+    return path
 
 logger = XPlaneLogger()

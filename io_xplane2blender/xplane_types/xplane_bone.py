@@ -34,7 +34,7 @@ import mathutils
 
 from io_xplane2blender import xplane_constants, xplane_props
 from io_xplane2blender.xplane_config import getDebug
-from io_xplane2blender.xplane_helpers import floatToStr, logger, vec_b_to_x
+from io_xplane2blender.xplane_helpers import floatToStr, logger, vec_b_to_x, resolveDatarefName
 from io_xplane2blender.xplane_types.xplane_keyframe import XPlaneKeyframe
 from io_xplane2blender.xplane_types.xplane_keyframe_collection import (
     XPlaneKeyframeCollection,
@@ -701,7 +701,7 @@ class XPlaneBone:
         if debug:
             o += f"{indent}# translation keyframes\n"
 
-        o += f"{indent}ANIM_trans_begin\t{dataref}\n"
+        o += f"{indent}ANIM_trans_begin\t{resolveDatarefName(dataref, self.blenderObject)}\n"
 
         for keyframe in keyframes:
             totalTrans += sum(map(abs, keyframe.location))
@@ -743,7 +743,7 @@ class XPlaneBone:
         o += (
             f"{indent}ANIM_rotate_begin"
             f"\t{tab.join(map(floatToStr, vec_b_to_x(refAxis)))}"
-            f"\t{dataref}\n"
+            f"\t{resolveDatarefName(dataref, self.blenderObject)}\n"
         )
 
         for keyframe in keyframes:
@@ -782,7 +782,7 @@ class XPlaneBone:
             ao += (
                 f"{indent}ANIM_rotate_begin"
                 f"\t{tab.join(map(floatToStr, vec_b_to_x(axis)))}"
-                f"\t{dataref}\n"
+                f"\t{resolveDatarefName(dataref, self.blenderObject)}\n"
             )
 
             for keyframe in keyframes:

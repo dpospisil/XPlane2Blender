@@ -14,7 +14,7 @@ from mathutils import Vector
 
 from io_xplane2blender import xplane_helpers
 from io_xplane2blender.xplane_constants import *
-from io_xplane2blender.xplane_helpers import logger
+from io_xplane2blender.xplane_helpers import logger,resolveCommandName,resolveDatarefName
 from io_xplane2blender.xplane_props import (
     XPlaneAxisDetentRange,
     XPlaneManipulatorSettings,
@@ -911,8 +911,8 @@ class XPlaneManipulator:
                     self.manip.v1_max,
                     self.manip.v2_min,
                     self.manip.v2_max,
-                    self.manip.dataref1,
-                    self.manip.dataref2,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
+                    resolveDatarefName(self.manip.dataref2, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif (
@@ -926,7 +926,7 @@ class XPlaneManipulator:
                     self.manip.dz,
                     self.manip.v1,
                     self.manip.v2,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type == MANIP_DRAG_AXIS_PIX:
@@ -937,7 +937,7 @@ class XPlaneManipulator:
                     self.manip.exp,
                     self.manip.v1,
                     self.manip.v2,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif (
@@ -1242,8 +1242,8 @@ class XPlaneManipulator:
                     v1_max,
                     v2_min,
                     v2_max,
-                    self.manip.dataref1,
-                    self.manip.dataref2,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
+                    resolveDatarefName(self.manip.dataref2, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type == MANIP_COMMAND:
@@ -1254,8 +1254,8 @@ class XPlaneManipulator:
                     self.manip.dx,
                     self.manip.dy,
                     self.manip.dz,
-                    self.manip.positive_command,
-                    self.manip.negative_command,
+                    resolveCommandName(self.manip.positive_command, self.xplanePrimative.blenderObject),
+                    resolveCommandName(self.manip.negative_command, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type in (
@@ -1265,8 +1265,8 @@ class XPlaneManipulator:
             ):
                 value = (
                     self.manip.cursor,
-                    self.manip.positive_command,
-                    self.manip.negative_command,
+                    resolveCommandName(self.manip.positive_command, self.xplanePrimative.blenderObject),
+                    resolveCommandName(self.manip.negative_command, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type in (
@@ -1280,14 +1280,14 @@ class XPlaneManipulator:
                     self.manip.cursor,
                     self.manip.v_down,
                     self.manip.v_up,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type == MANIP_RADIO:
                 value = (
                     self.manip.cursor,
                     self.manip.v_down,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type == MANIP_TOGGLE:
@@ -1295,7 +1295,7 @@ class XPlaneManipulator:
                     self.manip.cursor,
                     self.manip.v_on,
                     self.manip.v_off,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type in (MANIP_DELTA, MANIP_WRAP):
@@ -1305,7 +1305,7 @@ class XPlaneManipulator:
                     self.manip.v_hold,
                     self.manip.v1_min,
                     self.manip.v1_max,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type in (
@@ -1319,7 +1319,7 @@ class XPlaneManipulator:
                     self.manip.v2,
                     self.manip.click_step,
                     self.manip.hold_step,
-                    self.manip.dataref1,
+                    resolveDatarefName(self.manip.dataref1, self.xplanePrimative.blenderObject),
                     self.manip.tooltip,
                 )
             elif self.type == MANIP_NOOP:
